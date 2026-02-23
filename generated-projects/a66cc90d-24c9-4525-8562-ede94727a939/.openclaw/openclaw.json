@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.12"
+  },
+  "auth": {
+    "profiles": {
+      "openai": {
+        "provider": "openai",
+        "mode": "key",
+        "key": "${OPENAI_API_KEY}"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": "openai/gpt-4o-mini",
+      "workspace": "./mailbot",
+      "browser": {
+        "headless": true,
+        "noSandbox": true
+      }
+    },
+    "list": [
+      {
+        "id": "mailbot",
+        "name": "Gmail Summary Bot",
+        "workspace": "./mailbot"
+      }
+    ]
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "dmPolicy": "allowlist"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "lan",
+    "auth": {
+      "mode": "token",
+      "token": "${MATON_GATEWAY_TOKEN}"
+    }
+  },
+  "crons": [
+    {
+      "id": "daily-email-summary",
+      "schedule": "0 9 * * *",
+      "agentId": "mailbot",
+      "prompt": "Check my Gmail inbox for any unread emails received today. Summarize them into a concise daily report and send it to me on Telegram.",
+      "channel": "telegram"
+    }
+  ],
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.12",
+    "lastTouchedAt": "2026-02-18T10:00:00.000Z"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-3-5-sonnet"
+      },
+      "workspace": "./main",
+      "compaction": {
+        "mode": "safeguard"
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "name": "GmailSumBot",
+        "workspace": "./main"
+      }
+    ]
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "dmPolicy": "pairing"
+    }
+  },
+  "crons": [
+    {
+      "id": "daily-gmail-summary",
+      "schedule": "0 10 * * *",
+      "agentId": "main",
+      "prompt": "Go to Gmail using browser-use (real browser mode), read the unread emails from the last 24 hours, and send a concise summary to me on Telegram. Use the gmail-summary skill for logic.",
+      "channel": "telegram"
+    }
+  ],
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      }
+    }
+  }
+}

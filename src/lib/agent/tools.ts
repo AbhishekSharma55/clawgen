@@ -131,7 +131,7 @@ export const agentTools = {
     description: 'Ask the user a clarifying question with multiple choice options. Use this when you need human input to proceed — e.g. tech stack choice, feature preference, ambiguous requirement.',
     inputSchema: z.object({
       question: z.string().describe('The question to ask the user'),
-      options: z.array(z.string()).min(2).max(8).describe('List of answer choices'),
+      options: z.array(z.string()).min(2).max(20).describe('List of answer choices'),
     }),
     // No execute — this is a human-in-the-loop tool, frontend handles it
   }),

@@ -11,7 +11,7 @@ const openai = createOpenAI({
   baseURL: process.env.OPENAI_BASE_URL ?? 'https://api.openai.com/v1',
   apiKey: process.env.OPENAI_API_KEY!,
 });
-
+console.log(process.env.OPENAI_API_KEY?.toString().substring(0, 5) + '...')
 export async function POST(req: NextRequest) {
   const { messages, projectId } = await req.json();
 
